@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incident Response Lifecycle | Firewall101</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <header class="page-hero"><div class="container">
+    <span class="eyebrow">NIST-based</span>
+    <h1>Incident Response Lifecycle</h1>
+    <p>Six phases that guide every incident. Select a phase to see what happens in it.</p>
+  </div></header>
+
+  <section class="block">
+    <div class="container">
+      <div class="flow" id="flow" role="tablist"></div>
+      <div id="panels"></div>
+      <div class="phase-nav">
+        <button class="btn btn-ghost btn-sm" id="prev">← Previous</button>
+        <button class="btn btn-primary btn-sm" id="next">Next phase →</button>
+      </div>
+      <p class="cycle-note">↻ Lessons from Post-Incident Review feed back into Preparation.</p>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const PHASES = [
+  { name: 'Preparation', short: 'Get ready', icon: 'shield',
+    summary: 'Work done before any incident so the college can respond quickly and calmly.',
+    points: ['Form the Incident Response Team and assign roles', 'Keep contact lists, playbooks and tools ready', 'Run awareness training for students and staff', 'Maintain regular, tested backups and patching'] },
+  { name: 'Detection and Analysis', short: 'Spot it', icon: 'alert',
+    summary: 'Identify that something is wrong and work out what it is and how serious it is.',
+    points: ['Collect reports from users, help desk and monitoring tools', 'Confirm whether it is a real incident or a false alarm', 'Classify the incident type and assign a severity level', 'Record evidence and start an incident log'] },
+  { name: 'Containment', short: 'Stop the spread', icon: 'lock',
+    summary: 'Limit the damage and prevent the problem from spreading further.',
+    points: ['Isolate affected devices from the network', 'Disable or reset compromised accounts', 'Block malicious links, IPs or email senders', 'Preserve evidence before making major changes'] },
+  { name: 'Eradication', short: 'Remove the cause', icon: 'bug',
+    summary: 'Find and remove the root cause so the threat cannot return.',
+    points: ['Remove malware and malicious files', 'Close the vulnerability that was exploited', 'Reset credentials and revoke suspicious access', 'Scan other systems for signs of the same threat'] },
+  { name: 'Recovery', short: 'Get back to normal', icon: 'backup',
+    summary: 'Restore systems and services safely and confirm they are clean.',
+    points: ['Restore data from clean, verified backups', 'Rebuild or re-image affected systems if needed', 'Return services gradually and monitor closely', 'Confirm with users that everything works normally'] },
+  { name: 'Post-Incident Review', short: 'Learn and improve', icon: 'edit',
+    summary: 'Look back at what happened to make the next response better.',
+    points: ['Hold a review meeting with everyone involved', 'Document the timeline, causes and what worked or failed', 'Update playbooks, controls and training', 'Share lessons and close the incident report'] }
+];
+let current = 0;
+const flow = document.getElementById('flow');
+const panels = document.getElementById('panels');
+PHASES.forEach((p, i) => {
+  flow.insertAdjacentHTML('beforeend', `<button class="flow-step" role="tab" data-i="${i}"><span class="num">${i + 1}</span><strong>${p.name}</strong><br><small>${p.short}</small></button>`);
+  panels.insertAdjacentHTML('beforeend', `<div class="card phase-panel" data-i="${i}">
+    <div class="icon-box">${icon(p.icon)}</div>
+    <h3>${i + 1}. ${p.name}</h3><p>${p.summary}</p>
+    <ul class="check-list">${p.points.map(x => `<li>${x}</li>`).join('')}</ul></div>`);
+});
+function show(i) {
+  current = (i + PHASES.length) % PHASES.length;
+  document.querySelectorAll('.flow-step').forEach(b => b.classList.toggle('active', +b.dataset.i === current));
+  document.querySelectorAll('.phase-panel').forEach(b => b.classList.toggle('active', +b.dataset.i === current));
+}
+flow.addEventListener('click', e => { const b = e.target.closest('.flow-step'); if (b) show(+b.dataset.i); });
+document.getElementById('prev').onclick = () => show(current - 1);
+document.getElementById('next').onclick = () => show(current + 1);
+show(0);
+});
+</script>
+</body>
+</html>

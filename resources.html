@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resources &amp; Awareness | Firewall101</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <header class="page-hero"><div class="container">
+    <span class="eyebrow">Stay safe</span>
+    <h1>Resources &amp; Awareness</h1>
+    <p>Simple habits for students and staff, answers to common questions, and templates for incident handling.</p>
+  </div></header>
+
+  <section class="block">
+    <div class="container">
+      <div class="section-head"><h2>Cybersecurity awareness</h2></div>
+      <div class="grid grid-3">
+        <div class="card"><div class="icon-box" data-icon="key"></div><h3>Use strong passwords</h3><p>Use long, unique passphrases (12+ characters). Never reuse your college password elsewhere.</p></div>
+        <div class="card"><div class="icon-box" data-icon="lock"></div><h3>Enable two-factor authentication</h3><p>A second step such as an app code stops most account takeovers even if your password leaks.</p></div>
+        <div class="card"><div class="icon-box" data-icon="mail"></div><h3>Do not click unknown links</h3><p>Check the sender and hover over links first. When in doubt, go to the website directly.</p></div>
+        <div class="card"><div class="icon-box" data-icon="alert"></div><h3>Do not share OTPs or passwords</h3><p>No one from the college, bank or IT team will ever ask for your OTP or password.</p></div>
+        <div class="card"><div class="icon-box" data-icon="update"></div><h3>Keep software updated</h3><p>Install operating system, browser and app updates promptly to close known security holes.</p></div>
+        <div class="card"><div class="icon-box" data-icon="backup"></div><h3>Back up important files</h3><p>Keep copies of assignments and projects on cloud storage or an external drive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="container" style="max-width:860px">
+      <div class="section-head"><h2>Frequently asked questions</h2></div>
+      <details><summary>I clicked a suspicious link. What should I do?</summary><p>Disconnect from the network if you can, change your password from another safe device, and report it immediately. Reporting quickly matters more than embarrassment.</p></details>
+      <details><summary>Will I get in trouble for reporting an incident?</summary><p>No. Good-faith reports are encouraged and help protect everyone. The aim is to fix problems, not to blame people.</p></details>
+      <details><summary>How do I know if an email is really from the college?</summary><p>Check the sender's full address, look for urgency or odd requests, and confirm with the IT Help Desk through a known contact method if you are unsure.</p></details>
+      <details><summary>What if I'm not sure it's an incident?</summary><p>Report it anyway. The IT Security Team would rather check a false alarm than miss a real attack.</p></details>
+      <details><summary>Can I use my personal device on campus Wi-Fi?</summary><p>Usually yes, but keep it updated, use a screen lock and avoid storing sensitive college data on it unless allowed by policy.</p></details>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="container">
+      <div class="section-head"><h2>Templates</h2><p>View on screen or download as text files. Sample templates for project use.</p></div>
+      <div class="grid grid-3" id="tpls"></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const TEMPLATES = [
+  { id: 'report', title: 'Incident Report Template', file: 'incident-report-template.txt', body:
+`INCIDENT REPORT (SAMPLE TEMPLATE)
+
+Report ID:
+Reported by (name / role / department):
+Contact email:
+Date and time incident occurred:
+Date and time discovered:
+
+Incident type:
+Suspected severity (Low / Medium / High / Critical):
+Affected systems, devices or accounts:
+
+Description (what happened, what was seen):
+
+Actions already taken:
+
+Data possibly involved (student / staff / research / financial):
+
+Evidence attached (screenshots, logs, emails):
+
+Received by (IT Security Team):
+Status (Submitted / Under Review / Contained / Resolved / Closed):` },
+  { id: 'pir', title: 'Post-Incident Review Template', file: 'post-incident-review-template.txt', body:
+`POST-INCIDENT REVIEW (SAMPLE TEMPLATE)
+
+Incident ID:
+Review date and attendees:
+
+1. Summary of the incident
+2. Timeline (detection, containment, eradication, recovery)
+3. Root cause
+4. Impact (systems, data, users, downtime)
+5. What worked well
+6. What did not work well
+7. Lessons learned
+8. Corrective actions (action / owner / due date)
+9. Updates needed to playbooks, tools or training
+10. Sign-off (Incident Manager / IT Security Lead):` },
+  { id: 'comm', title: 'Incident Communication Template', file: 'incident-communication-template.txt', body:
+`INCIDENT COMMUNICATION (SAMPLE TEMPLATE)
+
+Subject: [Security Notice] <short description>
+
+Dear students and staff,
+
+What happened:
+<plain-language summary, no technical blame>
+
+Who is affected:
+<groups, systems or services>
+
+What we are doing:
+<containment and recovery steps>
+
+What you should do:
+1.
+2.
+
+When we will update you next:
+<time / channel>
+
+Contact: IT Help Desk (sample) helpdesk@example.edu
+
+Thank you for your patience.
+IT Security Team (sample)` }
+];
+document.getElementById('tpls').innerHTML = TEMPLATES.map(t => `
+  <div class="card"><div class="icon-box">${icon('file')}</div><h3>${t.title}</h3>
+    <div class="btn-row"><button class="btn btn-ghost btn-sm" data-view="${t.id}">View</button><button class="btn btn-primary btn-sm" data-dl="${t.id}">Download</button></div>
+    <pre class="tpl-view" id="v-${t.id}"></pre></div>`).join('');
+document.getElementById('tpls').addEventListener('click', e => {
+  const v = e.target.dataset.view, d = e.target.dataset.dl;
+  if (v) { const t = TEMPLATES.find(x => x.id === v), box = document.getElementById('v-' + v); box.textContent = t.body; box.classList.toggle('show'); e.target.textContent = box.classList.contains('show') ? 'Hide' : 'View'; }
+  if (d) { const t = TEMPLATES.find(x => x.id === d); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t.body], { type: 'text/plain' })); a.download = t.file; a.click(); URL.revokeObjectURL(a.href); }
+});
+});
+</script>
+</body>
+</html>

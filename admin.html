@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard | Firewall101</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <header class="page-hero"><div class="container">
+    <span class="eyebrow">Demo only</span>
+    <h1>Admin Dashboard</h1>
+    <p>Prototype view of submitted reports. There is no login in this demo; a real system would require authentication. Data is stored in this browser only.</p>
+  </div></header>
+  <section class="block">
+    <div class="container">
+      <div class="stats" id="stats"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Report ID</th><th>Date</th><th>Incident type</th><th>Severity</th><th>Reporter</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="btn-row" style="margin-top:1rem">
+        <button class="btn btn-ghost btn-sm" id="reset">Reset demo data</button>
+        <a class="btn btn-primary btn-sm" href="report.html">Submit a new report</a>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Store.seed();
+  const ACTIONS = ['Under Review', 'Contained', 'Resolved', 'Closed'];
+  function render() {
+    const list = Store.all();
+    const count = s => list.filter(r => r.status === s).length;
+    document.getElementById('stats').innerHTML =
+      `<div class="stat"><b>${list.length}</b><span>Total reports</span></div>
+       <div class="stat"><b>${count('Submitted')}</b><span>New</span></div>
+       <div class="stat"><b>${count('Under Review') + count('Contained')}</b><span>In progress</span></div>
+       <div class="stat"><b>${count('Resolved') + count('Closed')}</b><span>Resolved / closed</span></div>`;
+    const body = document.getElementById('rows');
+    if (!list.length) { body.innerHTML = '<tr><td colspan="7" class="empty">No reports yet.</td></tr>'; return; }
+    body.innerHTML = list.map(r => `
+      <tr>
+        <td><strong>${esc(r.id)}</strong></td>
+        <td>${new Date(r.submittedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+        <td>${esc(r.type)}</td>
+        <td><span class="badge sev-${esc(r.severity).toLowerCase()}">${esc(r.severity)}</span></td>
+        <td>${esc(r.name)}<br><small style="color:var(--grey)">${esc(r.dept)}</small></td>
+        <td><span class="badge ${statusClass(r.status)}">${esc(r.status)}</span></td>
+        <td><div class="actions">${ACTIONS.map(a => `<button data-id="${esc(r.id)}" data-s="${a}" ${r.status === a ? 'disabled' : ''}>${a}</button>`).join('')}</div></td>
+      </tr>`).join('');
+  }
+  document.getElementById('rows').addEventListener('click', e => {
+    const b = e.target.closest('button[data-s]');
+    if (!b) return;
+    Store.setStatus(b.dataset.id, b.dataset.s);
+    render();
+  });
+  document.getElementById('reset').addEventListener('click', () => {
+    if (confirm('Delete all saved reports and restore the sample data?')) { Store.save([]); Store.seed(); render(); }
+  });
+  render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Response Playbooks | Firewall101</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <header class="page-hero"><div class="container">
+    <span class="eyebrow">Step by step</span>
+    <h1>Response Playbooks</h1>
+    <p>Follow these numbered steps when an incident happens. When unsure, report first.</p>
+  </div></header>
+
+  <section class="block">
+    <div class="container">
+      <div class="pb-tabs">
+        <a href="#phishing">Phishing email</a><a href="#ransomware">Ransomware</a><a href="#lost-device">Lost or stolen device</a><a href="#other">Other incidents</a>
+      </div>
+
+      <article class="playbook" id="phishing">
+        <div class="pb-head"><div class="icon-box" data-icon="mail" style="margin:0"></div><div><h2>Phishing Email</h2><span class="badge sev-low">Typical severity: Low</span></div></div>
+        <ol class="steps">
+          <li><strong>Do not click links or open attachments</strong><span>Leave the email as it is. Do not reply, and do not forward it to others.</span></li>
+          <li><strong>Take a screenshot</strong><span>Capture the full message, including the sender address and any links (do not click them).</span></li>
+          <li><strong>Report the email</strong><span>Send the screenshot to the IT Help Desk or use the <a href="report.html">incident report form</a>.</span></li>
+          <li><strong>Never share passwords or OTPs</strong><span>No genuine college service will ask for them by email, call or chat. If you already clicked or entered details, change your password immediately and say so in your report.</span></li>
+          <li><strong>IT reviews and warns users</strong><span>The IT team checks the message, blocks the sender or link, and sends a warning to students and staff if it is spreading.</span></li>
+        </ol>
+      </article>
+
+      <article class="playbook" id="ransomware">
+        <div class="pb-head"><div class="icon-box" data-icon="lock" style="margin:0"></div><div><h2>Ransomware</h2><span class="badge sev-critical">Typical severity: Critical</span></div></div>
+        <ol class="steps">
+          <li><strong>Disconnect the device from the network</strong><span>Unplug the network cable and turn off Wi-Fi. Do not shut down unless told to, as this can destroy evidence.</span></li>
+          <li><strong>Do not pay and do not delete files</strong><span>Paying does not guarantee recovery and encourages attackers. Leave the ransom note and encrypted files untouched.</span></li>
+          <li><strong>Report immediately</strong><span>Call the Cybersecurity Incident Response Team and the IT Help Desk right away (see <a href="contact.html">Contact</a>).</span></li>
+          <li><strong>Preserve evidence</strong><span>Photograph the screen, note the time and what you were doing, and keep the device untouched for investigators.</span></li>
+          <li><strong>Remove the threat first</strong><span>The IR team identifies the malware, closes the entry point and cleans or re-images affected systems.</span></li>
+          <li><strong>Restore from clean backups only</strong><span>Restore data only after the threat is fully removed, and verify the backups are clean before reconnecting systems.</span></li>
+        </ol>
+      </article>
+
+      <article class="playbook" id="lost-device">
+        <div class="pb-head"><div class="icon-box" data-icon="phone" style="margin:0"></div><div><h2>Lost or Stolen Device</h2><span class="badge sev-medium">Typical severity: Medium to High</span></div></div>
+        <ol class="steps">
+          <li><strong>Report immediately</strong><span>Tell the IT Help Desk as soon as you notice. If stolen, also inform campus security.</span></li>
+          <li><strong>Remotely lock or wipe if possible</strong><span>Use device-finder or college device-management tools to lock, locate or wipe the device.</span></li>
+          <li><strong>Change your passwords</strong><span>Reset college email, LMS and any other accounts that were signed in on the device.</span></li>
+          <li><strong>Check for unauthorised access</strong><span>IT reviews account sign-in logs and sessions for activity after the time of loss.</span></li>
+          <li><strong>Inform the Data Protection Officer</strong><span>Required if the device held sensitive data such as student records, staff data or research files.</span></li>
+        </ol>
+      </article>
+
+      <article class="playbook" id="other">
+        <h2>Other incidents: quick guidance</h2>
+        <p style="color:var(--grey)">Full playbooks for these can be added as the framework grows. Until then, take these first actions and report.</p>
+        <div class="grid grid-2">
+          <div class="card" id="malware"><h3>Malware infection</h3><p>Disconnect from the network, stop using the device, run no "clean-up" tools on your own, and report to IT.</p></div>
+          <div class="card" id="account"><h3>Password / account compromise</h3><p>Change your password from a safe device, enable two-factor authentication, sign out of all sessions and report.</p></div>
+          <div class="card" id="breach"><h3>Data breach</h3><p>Report at once, do not try to delete or "fix" data, and let the Data Protection Officer lead notification decisions.</p></div>
+          <div class="card" id="dos"><h3>Denial-of-service attack</h3><p>Report slowdowns to IT; the network team filters traffic and works with the internet provider if needed.</p></div>
+          <div class="card" id="defacement"><h3>Website defacement</h3><p>Do not edit the page. Take a screenshot, report to IT, and the web team will take the site offline and restore a clean copy.</p></div>
+        </div>
+      </article>
+
+      <div class="callout"><strong style="color:var(--white)">Remember:</strong> if you are unsure whether something is an incident, report it anyway. <a href="report.html">Report an incident →</a></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+</body>
+</html>

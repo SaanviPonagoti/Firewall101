@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incident Types | Firewall101</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <header class="page-hero"><div class="container">
+    <span class="eyebrow">Know the threats</span>
+    <h1>Types of Cyber Incidents</h1>
+    <p>Common incidents on a college campus, with warning signs and where to find the response steps.</p>
+  </div></header>
+  <section class="block">
+    <div class="container"><div class="grid grid-2" id="grid"></div></div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const TYPES = [
+  { n: 'Phishing emails', i: 'mail', d: 'Fake emails or messages that trick people into clicking links, opening files or giving away passwords and OTPs.', s: ['Urgent or threatening tone', 'Unexpected fee, scholarship or password-reset request', 'Misspelt sender address or suspicious link'], p: 'phishing' },
+  { n: 'Ransomware', i: 'lock', d: 'Malware that locks or encrypts files and demands payment to restore access.', s: ['Files renamed or cannot be opened', 'Ransom note on screen', 'Sudden slowdown or unusual disk activity'], p: 'ransomware' },
+  { n: 'Malware infection', i: 'bug', d: 'Harmful software such as viruses, trojans or spyware installed on a device.', s: ['Unexpected pop-ups or programs', 'Antivirus alerts', 'Device is slow or overheating'], p: 'malware' },
+  { n: 'Password or account compromise', i: 'key', d: 'Someone gains access to an email, LMS or other account using stolen or guessed credentials.', s: ['Login alerts from unknown places', 'Password suddenly stops working', 'Messages sent that you did not write'], p: 'account' },
+  { n: 'Data breach', i: 'db', d: 'Sensitive student, staff or research data is accessed, copied or exposed without permission.', s: ['Data found on public sites or forums', 'Unusual large downloads', 'Records altered or missing'], p: 'breach' },
+  { n: 'Lost or stolen device', i: 'phone', d: 'A laptop, phone, USB drive or tablet holding college data goes missing.', s: ['Device cannot be found', 'Device left unattended and now gone', 'Unfamiliar access after loss'], p: 'lost-device' },
+  { n: 'Denial-of-service attack', i: 'wifi', d: 'An attacker floods a website or network with traffic so real users cannot get in.', s: ['Website or LMS very slow or down', 'Wi-Fi unusually congested', 'Spike of traffic from odd sources'], p: 'dos' },
+  { n: 'Website defacement', i: 'globe', d: 'Unauthorised changes to the college website, such as altered pages or offensive messages.', s: ['Page content changed unexpectedly', 'Strange images or text appear', 'Visitors report redirects'], p: 'defacement' }
+];
+const full = ['phishing', 'ransomware', 'lost-device'];
+document.getElementById('grid').innerHTML = TYPES.map(t => `
+  <div class="card"><div class="icon-box">${icon(t.i)}</div>
+    <h3>${t.n}</h3><p>${t.d}</p>
+    <h4>Possible warning signs</h4><ul>${t.s.map(x => `<li>${x}</li>`).join('')}</ul>
+    <p style="margin-top:1rem;margin-bottom:0"><a class="more" href="playbooks.html#${t.p}">${full.includes(t.p) ? 'View response playbook →' : 'View response guidance →'}</a></p>
+  </div>`).join('');
+});
+</script>
+</body>
+</html>
